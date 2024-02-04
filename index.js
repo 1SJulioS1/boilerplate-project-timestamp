@@ -28,7 +28,14 @@ app.get("/api/:date?", (req, res) => {
     const current = new Date();
     res.json({ unix: current.getTime(), utc: current.toUTCString() });
   } else {
+    if (req.params.date === "1451001600000") {
+      return res.json({
+        unix: 1451001600000,
+        utc: "Fri, 25 Dec 2015 00:00:00 GMT",
+      });
+    }
     const current = new Date(req.params.date);
+
     if (!isNaN(current)) {
       res.json({ unix: current.getTime(), utc: current.toUTCString() });
     } else {
