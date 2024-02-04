@@ -28,8 +28,8 @@ app.get("/api/:date?", (req, res) => {
     ? req.params.date
     : parseInt(req.params.date);
   current = new Date(current);
-  isNaN(current.getTime())
-    ? res.json({ error: "Invalid Date" })
+  current.getTime() === "Invalid Date"
+    ? res.json({ error: `${current}}` })
     : res.json({ unix: current.getTime(), utc: current.toUTCString() });
 });
 
