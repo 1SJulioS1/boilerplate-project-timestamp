@@ -28,11 +28,11 @@ app.get("/api/:date?", (req, res) => {
     const current = new Date();
     res.json({ unix: current.getTime(), utc: current.toUTCString() });
   } else {
-    const current = new Date(req.params.date);
-    if (current === "Invalid Date") {
-      res.json({ error: `Invalid date` });
-    } else {
+    const current = new Date(Number(req.params.date));
+    if (!isNaN(current)) {
       res.json({ unix: current.getTime(), utc: current.toUTCString() });
+    } else {
+      res.json({ error: `Invalid date` });
     }
   }
 });
