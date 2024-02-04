@@ -30,7 +30,11 @@ app.get("/api/:date?", (req, res) => {
     const input = parseInt(req.params.date);
     if (!isNaN(input)) {
       const current = new Date(input);
-      res.json({ unix: current.getTime(), utc: current.toUTCString() });
+      if (current == "Invalid Date") {
+        return res.json({ error: `Invalid date` });
+      } else {
+        res.json({ unix: current.getTime(), utc: current.toUTCString() });
+      }
     } else {
       const current = new Date();
       res.json({ unix: current.getTime(), utc: current.toUTCString() });
